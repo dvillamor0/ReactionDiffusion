@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>reactionDiffusion</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+</head>
+
+<body>
+    <canvas id="canvas2" width="128" height="128" style="border:1px solid #000;" hidden></canvas>
+
+    <div id="canvas"></div>
+
+    <label for="sliderA">dA:</label>
+    <input type="range" min="0" max="2" step="0.1" value="1" id="sliderdA"> //jugar solo con esto<br>
+    
+    <label for="sliderB">dB:</label>
+    <input type="range" min="0" max="2" step="0.01" value="0.5" id="sliderdB"><br>
+
+    <label for="sliderT">F:</label>
+    <input type="range" min="0.01" max="0.1" step="0.0001" value="0.0545" id="sliderF"><br>
+    
+    <label for="sliderK">K:</label>
+    <input type="range" min="0.045" max="0.07" step="0.001" value="0.062" id="sliderK"><br>
+
+    <img id="resultImage" alt="Uc Image" hidden>
+
+    <script src="./src/ReactionDiffusion.js"></script>
+	<script src="sketch.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const sliders = {
+            dA: document.getElementById('sliderdA'),
+            dB: document.getElementById('sliderdB'),
+            feed: document.getElementById('sliderF'),
+            kill: document.getElementById('sliderK')
+          };
+    
+          for (let param in sliders) {
+            sliders[param].addEventListener('input', function() {
+              console.log(`Nuevo valor de ${param}: ${this.value}`);
+              
+              reactionDiffusion[param] = this.value;
+              reactionDiffusion.simular();
+              preview();
+
+            });
+          }
+        });
+      </script>
+</body>
+
+</html>
